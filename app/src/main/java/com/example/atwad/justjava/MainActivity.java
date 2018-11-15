@@ -1,10 +1,14 @@
 package com.example.atwad.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -18,29 +22,63 @@ public class MainActivity extends AppCompatActivity {
     }
     int quantity = 2;
     boolean whipped;
+    boolean chocolate;
     /**
      * This method is called when the order button is clicked.
      */
+
+
     public void submitOrder(View view) {
         int price = calculatePrice(5);
-        String priceMessage = "Name: Tony Wade\n";
+        EditText nameText = findViewById(R.id.name);
+        String name =(String) nameText.getText().toString();
+        String priceMessage = "Name: "+name+"\n";
         if(checkCream())
         {
             priceMessage+= "Add whipped cream\n";
         }
-        priceMessage+="Total: $" + (price) ;
+        if(checkChocolate())
+        {
+            priceMessage+= "Add Chocolate\n";
+
+        }
+        priceMessage+="Quantity: "+quantity;
+        priceMessage+="\nTotal: $" + (price) ;
         priceMessage +="\nThank you!";
 
         displayMessage(priceMessage);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java order for "+ name);
+        intent.putExtra(Intent.EXTRA_TEXT,priceMessage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     public void increment(View view) {
-        quantity++;
+        if (quantity<100)
+        {
+            quantity++;
+
+        }
+        else
+        {
+            Toast.makeText(this, "Cannot go above 100 cups of coffee", Toast.LENGTH_SHORT).show();
+        }
         displayQuantity(quantity);
 
     }
     public void decrement(View view) {
-        quantity--;
+        if (quantity>1)
+        {
+            quantity--;
+
+        }
+        else
+        {
+            Toast.makeText(this, "Cannot go under 1 cup of coffee", Toast.LENGTH_SHORT).show();
+        }
         displayQuantity(quantity);
 
     }
@@ -65,7 +103,15 @@ public class MainActivity extends AppCompatActivity {
     }
     private int calculatePrice(int priceOfOneCup)
     {
-        return quantity*priceOfOneCup;
+        int price=quantity*priceOfOneCup;
+        if (checkChocolate()){
+            price+=2*quantity;
+        }
+        if (checkCream()){
+            price+=1*quantity;
+        }
+        return price;
+
     }
     private boolean checkCream()
     {
@@ -78,5 +124,17 @@ public class MainActivity extends AppCompatActivity {
             whipped=false;
         }
         return whipped;
+    }
+    private boolean checkChocolate()
+    {
+        CheckBox checkChocolate = findViewById(R.id.chocolate_checkBox);
+        if(checkChocolate.isChecked())
+        {
+            chocolate=true;
+        }
+        else{
+            chocolate=false;
+        }
+        return chocolate;
     }
 }
