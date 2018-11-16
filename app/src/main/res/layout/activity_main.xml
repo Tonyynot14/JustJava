@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/name"
-            android:hint="Name"
+            android:hint="@string/personName"
             android:inputType="textCapWords"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:text="Toppings"
+        android:text="@string/toppings"
         android:textAllCaps="true"
         />
 
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
         android:layout_marginLeft="8dp"
-        android:text="Whipped Cream"
+        android:text="@string/whippedCream"
         android:textSize="16sp"
         android:paddingLeft="24dp"
         android:id="@+id/whipped_cream_checkBox"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="Chocolate"
+            android:text="@string/chocolate"
             android:textSize="16sp"
             android:paddingLeft="24dp"
             android:id="@+id/chocolate_checkBox"
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="Quantity"
+        android:text="@string/quantity"
         android:textAllCaps="true"
         android:layout_marginTop="16sp"
         />
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="16dp"
-        android:text="Price"
+        android:text="@string/priceSummary"
         android:textAllCaps="true" />
 
     <TextView
@@ -118,7 +118,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="16dp"
         android:onClick="submitOrder"
-        android:text="Order" />
+        android:text="@string/order" />
 
 
 </LinearLayout>

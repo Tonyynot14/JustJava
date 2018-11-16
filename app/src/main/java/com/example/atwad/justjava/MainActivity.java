@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         int price = calculatePrice(5);
         EditText nameText = findViewById(R.id.name);
         String name =(String) nameText.getText().toString();
-        String priceMessage = "Name: "+name+"\n";
+        String priceMessage = getString(R.string.order_summary_name,name)+"\n";
         if(checkCream())
         {
             priceMessage+= "Add whipped cream\n";
@@ -42,18 +42,18 @@ public class MainActivity extends AppCompatActivity {
             priceMessage+= "Add Chocolate\n";
 
         }
-        priceMessage+="Quantity: "+quantity;
-        priceMessage+="\nTotal: $" + (price) ;
-        priceMessage +="\nThank you!";
+        priceMessage+=getString(R.string.quantity) +": "+quantity;
+        priceMessage+="\nTotal: "+ NumberFormat.getCurrencyInstance().format(price);
+        priceMessage +="\n"+getString(R.string.thankYou);
 
         displayMessage(priceMessage);
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        /*Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java order for "+ name);
         intent.putExtra(Intent.EXTRA_TEXT,priceMessage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        }
+        }*/
     }
 
     public void increment(View view) {
